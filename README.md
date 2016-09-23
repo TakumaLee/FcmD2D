@@ -1,3 +1,5 @@
+[Download APK](http://bit.ly/2d75nfx)
+
 License
 -------
     Copyright 2015 TakumaLee
