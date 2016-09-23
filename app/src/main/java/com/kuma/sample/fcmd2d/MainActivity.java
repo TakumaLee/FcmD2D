@@ -15,19 +15,21 @@ import com.kuma.sample.fcmd2d.manager.FirebaseManager;
 public class MainActivity extends AppCompatActivity {
 
     private Button button1;
-    private Button button2;
-    private Button button3;
-    private EditText editText;
+    private EditText registerIdEditText;
+    private EditText idEditText;
+    private EditText nameEditText;
+    private EditText messageEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button1 = (Button) findViewById(R.id.button_register_1);
-        button2 = (Button) findViewById(R.id.button_register_2);
-        button3 = (Button) findViewById(R.id.button_register_3);
-        editText = (EditText) findViewById(R.id.editText_sendUser);
+        button1 = (Button) findViewById(R.id.button_register);
+        registerIdEditText = (EditText) findViewById(R.id.editText_register_id);
+        idEditText = (EditText) findViewById(R.id.editText_sendUser_id);
+        nameEditText = (EditText) findViewById(R.id.editText_sendUser_name);
+        messageEditText = (EditText) findViewById(R.id.editText_sendUser_mesage);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = editText.getText().toString();
-                FirebaseManager.getInstance().sendUserPush(id, "Test");
+                String regId = registerIdEditText.getText().toString();
+                String id = idEditText.getText().toString();
+                String name = nameEditText.getText().toString();
+                String message = messageEditText.getText().toString();
+                FirebaseManager.getInstance().sendUserPush(id, regId, name, message);
+//                FirebaseManager.getInstance().sendPush("Test", id, "eJ-yAt4vbNQ:APA91bHBeumraPu2gDtdRZX9bvULZXDAvOPlluIgWnp-Nwd6afhkWG4AEgyRT85cUvcxuPsmlzHb-Vyzhft2rgvTBOEJeFc6C3qL2pnNemjVDz4b046CDva7psaPff4IJgVz-4W6XXj2", false);
             }
         });
 
@@ -51,21 +57,8 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseManager.getInstance().updateUserPushData("1");
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseManager.getInstance().updateUserPushData("2");
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseManager.getInstance().updateUserPushData("3");
+                String id = registerIdEditText.getText().toString();
+                FirebaseManager.getInstance().updateUserPushData(id);
             }
         });
     }

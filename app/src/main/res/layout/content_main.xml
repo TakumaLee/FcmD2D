@@ -14,28 +14,36 @@
     tools:context="com.kuma.sample.fcmd2d.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:id="@+id/button_register_1"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editText_register_id"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register 1"/>
+        android:inputType="number"
+        android:hint="Input your id"/>
 
     <Button
-        android:id="@+id/button_register_2"
+        android:id="@+id/button_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register 2"/>
-
-    <Button
-        android:id="@+id/button_register_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register 3"/>
+        android:text="Register"/>
 
     <EditText
-        android:id="@+id/editText_sendUser"
+        android:id="@+id/editText_sendUser_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:hint="Input id you want to send."/>
+
+    <EditText
+        android:id="@+id/editText_sendUser_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input your name"/>
+
+    <EditText
+        android:id="@+id/editText_sendUser_mesage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input your message"/>
+
 </LinearLayout>

@@ -108,7 +108,7 @@ public class FirebaseManager {
     }
 
     @Deprecated
-    public void sendUserPush(final String accountId, final String message) {
+    public void sendUserPush(final String accountId, final String fromUserId, final String name, final String message) {
         databaseRefUsers.child(PushUser.DATABASE_USERS).child(accountId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -135,7 +135,7 @@ public class FirebaseManager {
                                         continue;
                                     }
                                     boolean isIOS = !device.getDevice().equals("android");
-                                    sendPush(firebaseRemoteConfig, message, accountId, device.getToken(), isIOS);
+                                    sendPush(firebaseRemoteConfig, fromUserId, name, message, accountId, device.getToken(), isIOS);
                                 }
                             }
                         } else {
@@ -160,18 +160,26 @@ public class FirebaseManager {
     }
 
     @Deprecated
-    private void sendPush(FirebaseRemoteConfig firebaseRemoteConfig, String message, String accountId, String regId, boolean isIOS) {
+    private void sendPush(FirebaseRemoteConfig firebaseRemoteConfig, String fromUserId, String name, String message, String accountId, String regId, boolean isIOS) {
         String url = firebaseRemoteConfig.getString("server_push_url");
         String key = firebaseRemoteConfig.getString("server_push_key");
         Log.v(TAG, url + "\n" + key);
+        send(url, key, fromUserId, name, message, accountId, regId, isIOS);
+    }
+
+    public void sendPush(String message, String accountId, String regId, boolean isIOS) {
+        send("", "", "", "", message, accountId, regId, isIOS);
+    }
+
+    private void send(String url, String key, String fromUserId, String name, String message, String accountId, String regId, boolean isIOS) {
         JSONObject object = new JSONObject();
         JSONObject dataObj = new JSONObject();
         JSONObject notificationObj = new JSONObject();
         try {
             dataObj.put(KeyData.MESSAGE, message);
-            dataObj.put(KeyData.FROM_USER_HEAD_PIC, "https://www.facebook.com/photo.php?fbid=998328863519856&l=bc2da0ae10");
-            dataObj.put(KeyData.FROM_USER_NAME, "Takuma");
-            dataObj.put(KeyData.FROM_USER_ID, "456");
+            dataObj.put(KeyData.FROM_USER_HEAD_PIC, "https://avatars0.githubusercontent.com/u/5550100?v=3&u=9aef75e00006088430fc60d11786382372890773&s=140");
+            dataObj.put(KeyData.FROM_USER_NAME, name);
+            dataObj.put(KeyData.FROM_USER_ID, regId);
             dataObj.put(KeyData.TO_USER_ID, accountId);
 
             // for iOS device
