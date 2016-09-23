@@ -9,7 +9,7 @@
 .externalNativeBuild
 
 # Built application files
-*.apk
+#*.apk
 *.ap_
 
 # lint folder
